@@ -19,11 +19,16 @@ namespace NoteTaker
 
             this.navigationService = navigationService;
             this.notesService = notesService;
-
-            Notes = new ObservableCollection<Note>(this.notesService.GetNotes());
+            Init();
         }
 
         public ObservableCollection<Note> Notes { get; private set; }
+
+        internal void Init()
+        {
+            Notes = new ObservableCollection<Note>(this.notesService.GetNotes());
+            RaisePropertyChanged(nameof(Notes));
+        }
 
 		internal void NoteSelected(Note selectedItem)
 		{

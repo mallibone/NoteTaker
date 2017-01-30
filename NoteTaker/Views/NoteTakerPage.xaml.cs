@@ -26,5 +26,11 @@ namespace NoteTaker
 
 			NoteListView.SelectedItem = null;
 		}
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            Vm.Init();
+        }
 	}
 }

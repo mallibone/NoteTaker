@@ -10,9 +10,17 @@ namespace NoteTaker
     public class EditNoteViewModel : ViewModelBase
     {
         Note currentNote;
+        readonly NotesService notesService;
+        readonly INavigationService navigationService;
 
-        public EditNoteViewModel()
+        public EditNoteViewModel(NotesService notesService, INavigationService navigationService)
         {
+            if (navigationService == null) throw new ArgumentNullException(nameof(navigationService));
+            if (notesService == null) throw new ArgumentNullException(nameof(notesService));
+
+            this.notesService = notesService;
+            this.navigationService = navigationService;
+
             SaveNote = new RelayCommand(SaveChangesToNote);
         }
 
@@ -61,7 +69,8 @@ namespace NoteTaker
 
         void SaveChangesToNote()
         {
-            throw new NotImplementedException();
+            notesService.StoreNote(this.currentNote);
+            this.navigationService.GoBack();
         }
 
     }
