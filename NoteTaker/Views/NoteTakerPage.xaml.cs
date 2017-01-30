@@ -8,7 +8,7 @@ namespace NoteTaker
 		{
 			InitializeComponent();
 
-			ToolbarItems.Add(new ToolbarItem("Add", null, () =>
+            ToolbarItems.Add(new ToolbarItem("Add", "add", () =>
 			{
 				Vm.NewNote();
 			}));

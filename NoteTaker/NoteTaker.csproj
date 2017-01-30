@@ -30,6 +30,9 @@
   <ItemGroup>
     <EmbeddedResource Include="App.xaml" />
     <EmbeddedResource Include="Views\NoteTakerPage.xaml" />
+    <EmbeddedResource Include="Views\EditNoteView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -44,6 +47,10 @@
     <Compile Include="Locator.cs" />
     <Compile Include="Services\NotesService.cs" />
     <Compile Include="Models\Note.cs" />
+    <Compile Include="Views\EditNoteView.xaml.cs">
+      <DependentUpon>EditNoteView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Services\NavigationService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">

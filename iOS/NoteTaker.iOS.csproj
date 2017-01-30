@@ -114,9 +114,14 @@
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\add.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\add.imageset\add%401x.png" />
+    <ImageAsset Include="Assets.xcassets\add.imageset\add%402x.png" />
+    <ImageAsset Include="Assets.xcassets\add.imageset\add%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
+    <Folder Include="Assets.xcassets\add.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />

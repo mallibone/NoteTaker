@@ -1,23 +1,30 @@
 ﻿using System;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Views;
 
 namespace NoteTaker
 {
 	public class NoteTakerViewModel : ViewModelBase
 	{
-		public NoteTakerViewModel()
+        readonly INavigationService navigationService;
+
+        public NoteTakerViewModel(INavigationService navigationService)
 		{
-		}
+            if (navigationService == null)
+                throw new ArgumentNullException(nameof(navigationService));
+
+            this.navigationService = navigationService;
+        }
 
 		internal void NoteSelected(Note selectedItem)
 		{
 			if (selectedItem == null) throw new ArgumentNullException(nameof(selectedItem));
-			throw new NotImplementedException();
+            navigationService.NavigateTo(Locator.ViewNames.EditNotePage, selectedItem);
 		}
 
 		internal void NewNote()
 		{
-			throw new NotImplementedException();
+			navigationService.NavigateTo(Locator.ViewNames.EditNotePage);
 		}
 	}
 }

@@ -27,6 +27,7 @@ namespace NoteTaker
 		public class ViewNames
 		{
 			public static string NoteTakerPage = nameof(NoteTakerPage);
+            public static string EditNotePage = nameof(EditNoteView);
 		}
 	}
 }
