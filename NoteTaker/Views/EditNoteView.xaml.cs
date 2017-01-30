@@ -10,6 +10,17 @@ namespace NoteTaker
         {
             InitializeComponent();
             NavigationPage.SetBackButtonTitle(this, "Cancel");
+            Vm = App.Locator.EditNoteViewModel;
+            Vm.Init();
+            BindingContext = Vm;
         }
+
+        public EditNoteView(Note note):this()
+        {
+            if (note == null) throw new ArgumentNullException(nameof(note));
+            Vm.Init(note);
+        }
+
+        public EditNoteViewModel Vm { get; private set; }
     }
 }

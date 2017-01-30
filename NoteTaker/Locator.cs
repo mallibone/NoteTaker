@@ -14,6 +14,7 @@ namespace NoteTaker
 
 			//ViewModels
 			SimpleIoc.Default.Register<NoteTakerViewModel>();
+            SimpleIoc.Default.Register<EditNoteViewModel>();
 		}
 
 		/// <summary>
@@ -23,6 +24,11 @@ namespace NoteTaker
 			"CA1822:MarkMembersAsStatic",
 			Justification = "This non-static member is needed for data binding purposes.")]
 		public NoteTakerViewModel NoteTakerViewModel => ServiceLocator.Current.GetInstance<NoteTakerViewModel>();
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
+            "CA1822:MarkMembersAsStatic",
+            Justification = "This non-static member is needed for data binding purposes.")]
+        public EditNoteViewModel EditNoteViewModel => ServiceLocator.Current.GetInstance<EditNoteViewModel>();
 
 		public class ViewNames
 		{

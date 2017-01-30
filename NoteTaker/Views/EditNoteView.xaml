@@ -9,8 +9,8 @@
 			<RowDefinition Height="24" />
 			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
-		<Entry Placeholder="Note Title" Text="{Binding NoteTitle}" Margin="8,16" />
-		<Editor Text="{Binding NoteContent}" Grid.Row="1" Margin="8"  />
-		<Button BackgroundColor="Lime" Text="Store" TextColor="White" Grid.Row="3" Margin="-8,0" />
+		<Entry Placeholder="Note Title" Text="{Binding Title}" Margin="8,16" />
+		<Editor Text="{Binding Content}" Grid.Row="1" Margin="8" />
+		<Button BackgroundColor="Lime" Text="Store" TextColor="White" Grid.Row="3" Margin="-8,0" Command="{Binding SaveNote}" />
 	</Grid>
 </ContentPage>

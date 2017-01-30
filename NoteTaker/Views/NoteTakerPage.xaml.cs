@@ -8,10 +8,12 @@ namespace NoteTaker
 		{
 			InitializeComponent();
 
+            BindingContext = Vm;
+
             ToolbarItems.Add(new ToolbarItem("Add", "add", () =>
-			{
-				Vm.NewNote();
-			}));
+            {
+                Vm.NewNote();
+            }));
 		}
 
 		public NoteTakerViewModel Vm => App.Locator.NoteTakerViewModel;

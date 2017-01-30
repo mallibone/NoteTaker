@@ -30,6 +30,8 @@ namespace NoteTaker
 			SimpleIoc.Default.Register<INavigationService>(() => navService);
 
 			var mainPage = new NavigationPage(new NoteTakerPage());
+            mainPage.BarBackgroundColor = Color.FromRgb(0, 82, 160);
+            mainPage.BarTextColor = Color.White;
 			navService.Initialize(mainPage);
 			return mainPage;
 		}
