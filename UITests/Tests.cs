@@ -26,10 +26,10 @@ namespace NoteTaker.UITests
 		}
 
 		[Test]
-		public void WelcomeTextIsDisplayed()
+		public void AppStartsUp()
 		{
-			AppResult[] results = app.WaitForElement(c => c.Marked("Welcome to Xamarin Forms!"));
-			app.Screenshot("Welcome screen.");
+			AppResult[] results = app.WaitForElement(c => c.Marked("Notes"));
+			app.Screenshot("Note List");
 
 			Assert.IsTrue(results.Any());
 		}
