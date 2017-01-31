@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
+using Microsoft.Azure.Mobile;
 using UIKit;
 
 namespace NoteTaker.iOS
@@ -22,7 +23,9 @@ namespace NoteTaker.iOS
 
 			LoadApplication(new App());
 
-			return base.FinishedLaunching(app, options);
+            MobileCenter.Configure("b3ac63ce-d15b-48fb-8466-2d0f4ec0d9c7");
+
+            return base.FinishedLaunching(app, options);
 		}
 	}
 }
