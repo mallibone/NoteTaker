@@ -22,6 +22,7 @@ namespace NoteTaker
             this.navigationService = navigationService;
 
             SaveNote = new RelayCommand(SaveChangesToNote);
+            DeleteNote = new RelayCommand(DeleteNoteFromStorage);
         }
 
         internal void Init()
@@ -65,6 +66,8 @@ namespace NoteTaker
             }
         }
 
+        public RelayCommand DeleteNote { get; private set; }
+
         public RelayCommand SaveNote { get; private set; }
 
         void SaveChangesToNote()
@@ -73,5 +76,9 @@ namespace NoteTaker
             this.navigationService.GoBack();
         }
 
+        void DeleteNoteFromStorage()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
