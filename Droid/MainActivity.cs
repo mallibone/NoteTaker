@@ -21,8 +21,7 @@ namespace NoteTaker.Droid
 			TabLayoutResource = Resource.Layout.Tabbar;
 			ToolbarResource = Resource.Layout.Toolbar;
 
-            MobileCenter.Start("f5eb98e1-3278-4c16-ae6b-4ef50ed34699",
-                    typeof(Analytics), typeof(Crashes));
+            MobileCenter.Configure("f5eb98e1-3278-4c16-ae6b-4ef50ed34699");
 
             base.OnCreate(bundle);
 

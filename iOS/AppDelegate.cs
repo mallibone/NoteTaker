@@ -21,9 +21,10 @@ namespace NoteTaker.iOS
 			Xamarin.Calabash.Start();
 #endif
 
-			LoadApplication(new App());
 
             MobileCenter.Configure("b3ac63ce-d15b-48fb-8466-2d0f4ec0d9c7");
+
+			LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);
 		}
