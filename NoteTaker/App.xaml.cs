@@ -14,7 +14,7 @@ namespace NoteTaker
 		private static Locator _locator;
 		internal static Locator Locator => _locator ?? (_locator = new Locator());
 
-	    public static MobileServiceClient MobileService =
+	    public static readonly MobileServiceClient MobileService =
 	        new MobileServiceClient(
 	            "https://azurebootcampch.azurewebsites.net"
 	        );

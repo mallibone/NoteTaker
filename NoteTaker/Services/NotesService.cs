@@ -103,9 +103,13 @@ namespace NoteTaker.Services
 	                syncErrors = exc.PushResult.Errors;
 	            }
 	        }
+	        catch (Exception e)
+	        {
+	            Debug.WriteLine(@"Sync error: {0}", e.Message);
+            }
 
-	        // Simple error/conflict handling.
-	        if (syncErrors != null)
+            // Simple error/conflict handling.
+            if (syncErrors != null)
 	        {
 	            foreach (var error in syncErrors)
 	            {
