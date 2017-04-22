@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight.Views;
 using Microsoft.Azure.Mobile;
 using Microsoft.Azure.Mobile.Analytics;
 using Microsoft.Azure.Mobile.Crashes;
+using NoteTaker.Services;
 using Xamarin.Forms;
 
 namespace NoteTaker
@@ -24,11 +25,11 @@ namespace NoteTaker
 		private NavigationPage InitializeNavigationAndInitialPage()
 		{
 			var navService = new NavigationService();
-			navService.Configure(Locator.ViewNames.NoteTakerPage, typeof(NoteTakerPage));
-            navService.Configure(Locator.ViewNames.EditNotePage, typeof(EditNoteView));
+			navService.Configure(Locator.ViewNames.NoteTakerPage, typeof(Views.NoteTakerPage));
+            navService.Configure(Locator.ViewNames.EditNotePage, typeof(Views.EditNoteView));
 			SimpleIoc.Default.Register<INavigationService>(() => navService);
 
-			var mainPage = new NavigationPage(new NoteTakerPage());
+			var mainPage = new NavigationPage(new Views.NoteTakerPage());
             mainPage.BarBackgroundColor = Color.FromRgb(0, 82, 160);
             mainPage.BarTextColor = Color.White;
 			navService.Initialize(mainPage);

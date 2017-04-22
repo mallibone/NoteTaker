@@ -1,6 +1,8 @@
-﻿using Xamarin.Forms;
+﻿using NoteTaker.Models;
+using NoteTaker.ViewModels;
+using Xamarin.Forms;
 
-namespace NoteTaker
+namespace NoteTaker.Views
 {
 	public partial class NoteTakerPage : ContentPage
 	{
@@ -22,7 +24,8 @@ namespace NoteTaker
 		{
 			if (e.SelectedItem == null) return;
 
-			Vm.NoteSelected((Note)e.SelectedItem);
+		    var noteId = ((NoteViewItem) e.SelectedItem).Id;
+			Vm.NoteSelected(noteId);
 
 			NoteListView.SelectedItem = null;
 		}

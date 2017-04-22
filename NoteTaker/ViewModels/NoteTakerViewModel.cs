@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
+using NoteTaker.Models;
+using NoteTaker.Services;
+using NoteTaker.Utils;
 
-namespace NoteTaker
+namespace NoteTaker.ViewModels
 {
 	public class NoteTakerViewModel : ViewModelBase
 	{
@@ -22,25 +27,26 @@ namespace NoteTaker
             Init();
         }
 
-        public ObservableCollection<Note> Notes { get; private set; }
+        public ObservableCollection<NoteViewItem> Notes { get; private set; }
 
         internal void Init()
         {
-            Notes = new ObservableCollection<Note>(this.notesService.GetNotes());
+            var notes = this.notesService.GetNotes();
+            var deleteNote = new Action<NoteViewItem>((n) => Notes.Remove(n));
+            Notes = new ObservableCollection<NoteViewItem>(
+                notes.Select(n => new NoteViewItem(n){DeleteNote = deleteNote}).ToList()
+                );
             RaisePropertyChanged(nameof(Notes));
         }
 
-		internal void NoteSelected(Note selectedItem)
+		internal void NoteSelected(int noteId)
 		{
-			if (selectedItem == null) throw new ArgumentNullException(nameof(selectedItem));
-            navigationService.NavigateTo(Locator.ViewNames.EditNotePage, selectedItem.Clone());
+            navigationService.NavigateTo(Locator.ViewNames.EditNotePage, noteId);
 		}
 
 		internal void NewNote()
 		{
-			navigationService.NavigateTo(Locator.ViewNames.EditNotePage);
+			navigationService.NavigateTo(Locator.ViewNames.EditNotePage, Note.NewNoteId);
 		}
 	}
-
-    
 }

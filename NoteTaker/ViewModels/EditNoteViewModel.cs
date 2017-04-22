@@ -1,40 +1,44 @@
 using System;
-using System.Collections.ObjectModel;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
+using NoteTaker.Models;
+using NoteTaker.Services;
 
-namespace NoteTaker
+namespace NoteTaker.ViewModels
 {
 
     public class EditNoteViewModel : ViewModelBase
     {
-        Note currentNote;
-        readonly NotesService notesService;
-        readonly INavigationService navigationService;
+        Note _currentNote;
+        readonly NotesService _notesService;
+        readonly INavigationService _navigationService;
 
         public EditNoteViewModel(NotesService notesService, INavigationService navigationService)
         {
             if (navigationService == null) throw new ArgumentNullException(nameof(navigationService));
             if (notesService == null) throw new ArgumentNullException(nameof(notesService));
 
-            this.notesService = notesService;
-            this.navigationService = navigationService;
+            this._notesService = notesService;
+            this._navigationService = navigationService;
 
             SaveNote = new RelayCommand(SaveChangesToNote);
             DeleteNote = new RelayCommand(DeleteNoteFromStorage);
         }
 
-        internal void Init()
-        {
-            var note = new Note();
-            Init(note);
-        }
+        //internal void Init()
+        //{
+        //    var note = new Note();
+        //    Init(note);
+        //}
 
-        internal void Init(Note note)
+        internal void Init(int id)
         {
-            if (note == null) throw new ArgumentNullException(nameof(note));
-            this.currentNote = note;
+            var note = id == 0 
+                ? new Note() 
+                : _notesService.GetNote(id);
+
+            this._currentNote = note;
             RaisePropertyChanged(nameof(Title));
             RaisePropertyChanged(nameof(Content));
         }
@@ -42,12 +46,12 @@ namespace NoteTaker
         public string Title {
             get
             {
-                return currentNote.Title;
+                return _currentNote.Title;
             }
             set
             {
-                if (value == null || value == currentNote.Title) return;
-                currentNote.Title = value;
+                if (value == null || value == _currentNote.Title) return;
+                _currentNote.Title = value;
                 RaisePropertyChanged(nameof(Title));
             }
         }
@@ -56,12 +60,12 @@ namespace NoteTaker
         {
             get
             {
-                return currentNote.Content;
+                return _currentNote.Content;
             }
             set
             {
-                if (value == null || value == currentNote.Content) return;
-                currentNote.Content = value;
+                if (value == null || value == _currentNote.Content) return;
+                _currentNote.Content = value;
                 RaisePropertyChanged(nameof(Content));
             }
         }
@@ -72,8 +76,8 @@ namespace NoteTaker
 
         void SaveChangesToNote()
         {
-            notesService.StoreNote(this.currentNote);
-            this.navigationService.GoBack();
+            _notesService.StoreNote(this._currentNote);
+            this._navigationService.GoBack();
         }
 
         void DeleteNoteFromStorage()

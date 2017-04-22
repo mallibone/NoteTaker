@@ -1,26 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
+using NoteTaker.Models;
+using NoteTaker.ViewModels;
 using Xamarin.Forms;
 
-namespace NoteTaker
+namespace NoteTaker.Views
 {
     public partial class EditNoteView : ContentPage
     {
-        public EditNoteView()
+        public EditNoteView(int id)
         {
             InitializeComponent();
-            NavigationPage.SetBackButtonTitle(this, "Cancel");
-            Vm = App.Locator.EditNoteViewModel;
-            Vm.Init();
             BindingContext = Vm;
+            NavigationPage.SetBackButtonTitle(this, "Cancel");
+            Vm.Init(id);
         }
 
-        public EditNoteView(Note note):this()
-        {
-            if (note == null) throw new ArgumentNullException(nameof(note));
-            Vm.Init(note);
-        }
-
-        public EditNoteViewModel Vm { get; private set; }
+        private EditNoteViewModel Vm => App.Locator.EditNoteViewModel;
     }
 }

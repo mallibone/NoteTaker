@@ -1,7 +1,6 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
-namespace NoteTaker
+namespace NoteTaker.Utils
 {
 	public static class Extensions
 	{

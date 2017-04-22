@@ -1,14 +1,16 @@
 ﻿using System;
-namespace NoteTaker
+
+namespace NoteTaker.Models
 {
 	public class Note
 	{
-        public Note()
+	    public const int NewNoteId = 0;
+
+	    public Note()
         {
             Created = DateTime.Now;
             LastEdited = DateTime.Now;
         }
-
 
         public int Id { get; set; }
 		public string Title { get; set; }

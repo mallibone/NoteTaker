@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json;
+using NoteTaker.Models;
+using NoteTaker.Utils;
 
-namespace NoteTaker
+namespace NoteTaker.Services
 {
 	public class NotesService
 	{
@@ -13,10 +14,10 @@ namespace NoteTaker
 		{
             Notes = new List<Note>
             {
-                new Note {Id = 1, Title = "Plan TechDays Talk 2017", Content = "Present how Visual Studio Mobile Center will enable mobile solutions to adopt DevOps without any setup hassle.", Created = DateTime.Now.AddMonths(-1), LastEdited = DateTime.Now.AddMonths(-1)},
-                new Note {Id = 2, Title = "Valentines Day Plans", Content = "Don't forget to ask your wife to be your valentine on the 14. February", Created = DateTime.Now.AddDays(-7), LastEdited = DateTime.Now.AddDays(-7)},
-                new Note {Id = 3, Title = "Answers for VSMC Q&A", Content = "- It depends\n- 42", Created = DateTime.Now.AddDays(-1), LastEdited = DateTime.Now.AddDays(-1)},
-                new Note {Id = 4, Title = "Mention Feedback at end of talk", Content = "Dont forget to mention there will be a cool give away for the feedback", Created = DateTime.Now.AddHours(-1), LastEdited = DateTime.Now.AddHours(-1)},
+                new Note {Id = 1, Title = "Global Azure Bootcamp", Content = "Show how quickly remote storage, authentication and push can be added to an app.\n\n=>From Zero to Hero", Created = DateTime.Now.AddMonths(-1), LastEdited = DateTime.Now.AddMonths(-1)},
+                new Note {Id = 2, Title = "Plan Date Night", Content = "Don't forget to ask your wife to be your valentine on the 14. February", Created = DateTime.Now.AddDays(-7), LastEdited = DateTime.Now.AddDays(-7)},
+                new Note {Id = 3, Title = "Answers for Azure Mobile App Service Q&A", Content = "- It depends\n- 42", Created = DateTime.Now.AddDays(-1), LastEdited = DateTime.Now.AddDays(-1)},
+                new Note {Id = 4, Title = "Spacey Wacey Stuff", Content = "Dr. Who things and what not.", Created = DateTime.Now.AddHours(-1), LastEdited = DateTime.Now.AddHours(-1)},
             };
 		}
 
@@ -49,5 +50,12 @@ namespace NoteTaker
 
             return true;
         }
-    }
+
+	    public Note GetNote(int id)
+	    {
+            if(Notes.All(n => n.Id != id)) throw new ArgumentException();
+
+	        return Notes.First(n => n.Id == id).Clone();
+	    }
+	}
 }

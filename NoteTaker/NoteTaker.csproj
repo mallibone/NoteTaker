@@ -39,6 +39,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\NoteViewItem.cs" />
     <Compile Include="Views\NoteTakerPage.xaml.cs">
       <DependentUpon>NoteTakerPage.xaml</DependentUpon>
     </Compile>

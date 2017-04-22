@@ -1,9 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:NoteTaker" x:Class="NoteTaker.NoteTakerPage" Title="Notes">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:NoteTaker" x:Class="NoteTaker.Views.NoteTakerPage" Title="Notes">
 	<ListView x:Name="NoteListView" ItemsSource="{Binding Notes}" ItemSelected="Handle_ItemSelected" Margin="0,0,8,0">
 		<ListView.ItemTemplate>
 			<DataTemplate>
-				<TextCell Text="{Binding Title}" Detail="{Binding LastEditedString}" />
+				<TextCell Text="{Binding Title}" Detail="{Binding LastEditedString}">
+                    <TextCell.ContextActions>
+                        <MenuItem Text="Delete" Command="{Binding DeleteNoteCommand}" IsDestructive="True"></MenuItem>
+                    </TextCell.ContextActions>
+                </TextCell>
 			</DataTemplate>
 		</ListView.ItemTemplate>
 	</ListView>
