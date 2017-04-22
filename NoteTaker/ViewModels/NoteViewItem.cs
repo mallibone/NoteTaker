@@ -7,9 +7,10 @@ namespace NoteTaker.ViewModels
 {
     public class NoteViewItem
     {
+        private Note _note; 
         public NoteViewItem(Note note)
         {
-            Id = note.Id;
+            _note = note;
             Title = note.Title;
             Content = note.Content;
             Created = note.Created;
@@ -18,7 +19,6 @@ namespace NoteTaker.ViewModels
             DeleteNoteCommand = new RelayCommand(() => DeleteNote(this));
         }
 
-        public int Id { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
         public DateTime Created { get; set; }
@@ -26,5 +26,6 @@ namespace NoteTaker.ViewModels
         public string LastEditedString => LastEdited.ToString("D");
         public ICommand DeleteNoteCommand { get; set; }
         public Action<NoteViewItem> DeleteNote { get; set; }
+        public Note Note => new Note {Id = _note.Id, Title = Title, Content = Content, Created = Created, LastEdited = LastEdited};
     }
 }

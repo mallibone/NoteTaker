@@ -2,18 +2,16 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
 using NoteTaker.Models;
 using NoteTaker.Services;
-using NoteTaker.Utils;
 
 namespace NoteTaker.ViewModels
 {
 	public class NoteTakerViewModel : ViewModelBase
 	{
-        readonly INavigationService navigationService;
-        readonly NotesService notesService;
+        readonly INavigationService _navigationService;
+        readonly NotesService _notesService;
 
         public NoteTakerViewModel(INavigationService navigationService, NotesService notesService)
 		{
@@ -22,8 +20,8 @@ namespace NoteTaker.ViewModels
             if (navigationService == null)
                 throw new ArgumentNullException(nameof(navigationService));
 
-            this.navigationService = navigationService;
-            this.notesService = notesService;
+            _navigationService = navigationService;
+            _notesService = notesService;
             Init();
         }
 
@@ -31,22 +29,28 @@ namespace NoteTaker.ViewModels
 
         internal void Init()
         {
-            var notes = this.notesService.GetNotes();
-            var deleteNote = new Action<NoteViewItem>((n) => Notes.Remove(n));
+            var notes = _notesService.GetNotes();
+            var deleteNote = new Action<NoteViewItem>(RemoveNote);
             Notes = new ObservableCollection<NoteViewItem>(
                 notes.Select(n => new NoteViewItem(n){DeleteNote = deleteNote}).ToList()
                 );
             RaisePropertyChanged(nameof(Notes));
         }
 
-		internal void NoteSelected(int noteId)
+	    private void RemoveNote(NoteViewItem noteViewItem)
+	    {
+	        Notes.Remove(noteViewItem);
+	        _notesService.Delete(noteViewItem.Note);
+	    }
+
+	    internal void NoteSelected(NoteViewItem selectedNote)
 		{
-            navigationService.NavigateTo(Locator.ViewNames.EditNotePage, noteId);
+            _navigationService.NavigateTo(Locator.ViewNames.EditNotePage, selectedNote.Note);
 		}
 
 		internal void NewNote()
 		{
-			navigationService.NavigateTo(Locator.ViewNames.EditNotePage, Note.NewNoteId);
+			_navigationService.NavigateTo(Locator.ViewNames.EditNotePage, Note.NewNoteId);
 		}
 	}
 }

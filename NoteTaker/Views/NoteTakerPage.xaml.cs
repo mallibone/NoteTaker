@@ -24,8 +24,9 @@ namespace NoteTaker.Views
 		{
 			if (e.SelectedItem == null) return;
 
-		    var noteId = ((NoteViewItem) e.SelectedItem).Id;
-			Vm.NoteSelected(noteId);
+		    var selectedNote = ((NoteViewItem) e.SelectedItem);
+		    //Navigation.PushAsync(new EditNoteView(selectedNote.Id));
+            Vm.NoteSelected(selectedNote);
 
 			NoteListView.SelectedItem = null;
 		}

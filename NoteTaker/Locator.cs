@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
 using NoteTaker.Services;
 using NoteTaker.ViewModels;
+using NoteTaker.Views;
 
 namespace NoteTaker
 {
@@ -35,7 +36,7 @@ namespace NoteTaker
 		public class ViewNames
 		{
 			public static string NoteTakerPage = nameof(NoteTakerPage);
-            public static string EditNotePage = nameof(Views.EditNoteView);
+            public static string EditNotePage = nameof(EditNoteView);
 		}
 	}
 }

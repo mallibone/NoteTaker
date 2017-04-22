@@ -14,10 +14,10 @@ namespace NoteTaker.Services
 		{
             Notes = new List<Note>
             {
-                new Note {Id = 1, Title = "Global Azure Bootcamp", Content = "Show how quickly remote storage, authentication and push can be added to an app.\n\n=>From Zero to Hero", Created = DateTime.Now.AddMonths(-1), LastEdited = DateTime.Now.AddMonths(-1)},
-                new Note {Id = 2, Title = "Plan Date Night", Content = "Don't forget to ask your wife to be your valentine on the 14. February", Created = DateTime.Now.AddDays(-7), LastEdited = DateTime.Now.AddDays(-7)},
-                new Note {Id = 3, Title = "Answers for Azure Mobile App Service Q&A", Content = "- It depends\n- 42", Created = DateTime.Now.AddDays(-1), LastEdited = DateTime.Now.AddDays(-1)},
-                new Note {Id = 4, Title = "Spacey Wacey Stuff", Content = "Dr. Who things and what not.", Created = DateTime.Now.AddHours(-1), LastEdited = DateTime.Now.AddHours(-1)},
+                new Note {Title = "Global Azure Bootcamp", Content = "Show how quickly remote storage, authentication and push can be added to an app.\n\n=>From Zero to Hero", Created = DateTime.Now.AddMonths(-1), LastEdited = DateTime.Now.AddMonths(-1)},
+                new Note {Title = "Plan Date Night", Content = "Don't forget to ask your wife to be your valentine on the 14. February", Created = DateTime.Now.AddDays(-7), LastEdited = DateTime.Now.AddDays(-7)},
+                new Note {Title = "Answers for Azure Mobile App Service Q&A", Content = "- It depends\n- 42", Created = DateTime.Now.AddDays(-1), LastEdited = DateTime.Now.AddDays(-1)},
+                new Note {Title = "Spacey Wacey Stuff", Content = "Dr. Who things and what not.", Created = DateTime.Now.AddHours(-1), LastEdited = DateTime.Now.AddHours(-1)},
             };
 		}
 
@@ -30,13 +30,12 @@ namespace NoteTaker.Services
         {
             if (note == null) throw new ArgumentNullException(nameof(note));
 
-            Note storedNote;
 
-            if (note.Id > 0)
+            Note storedNote = Notes.FirstOrDefault(n => n.Equals(note));
+
+
+            if (storedNote != null)
             {
-                storedNote = Notes.FirstOrDefault(n => n.Id == note.Id);
-                if (storedNote == null) return false;
-
                 storedNote.Title = note.Title;
                 storedNote.Content = note.Content;
                 storedNote.LastEdited = DateTime.Now;
@@ -44,18 +43,15 @@ namespace NoteTaker.Services
             else
             {
                 storedNote = note;
-                storedNote.Id = (Notes.Last().Id + 1); // todo: replace with Snowflake ID...
                 Notes.Add(storedNote);
             }
 
             return true;
         }
 
-	    public Note GetNote(int id)
+	    public bool Delete(Note note)
 	    {
-            if(Notes.All(n => n.Id != id)) throw new ArgumentException();
-
-	        return Notes.First(n => n.Id == id).Clone();
+	        return Notes.Remove(note);
 	    }
 	}
 }

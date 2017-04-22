@@ -32,12 +32,8 @@ namespace NoteTaker.ViewModels
         //    Init(note);
         //}
 
-        internal void Init(int id)
+        internal void Init(Note note)
         {
-            var note = id == 0 
-                ? new Note() 
-                : _notesService.GetNote(id);
-
             this._currentNote = note;
             RaisePropertyChanged(nameof(Title));
             RaisePropertyChanged(nameof(Content));
@@ -77,12 +73,13 @@ namespace NoteTaker.ViewModels
         void SaveChangesToNote()
         {
             _notesService.StoreNote(this._currentNote);
-            this._navigationService.GoBack();
+            _navigationService.GoBack();
         }
 
         void DeleteNoteFromStorage()
         {
-            throw new NotImplementedException();
+            _notesService.Delete(_currentNote);
+            _navigationService.GoBack();
         }
     }
 }
