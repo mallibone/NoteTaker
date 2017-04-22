@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight.Views;
 using Microsoft.Azure.Mobile;
 using Microsoft.Azure.Mobile.Analytics;
 using Microsoft.Azure.Mobile.Crashes;
+using Microsoft.WindowsAzure.MobileServices;
 using NoteTaker.Services;
 using Xamarin.Forms;
 
@@ -13,6 +14,11 @@ namespace NoteTaker
 		private static Locator _locator;
 		internal static Locator Locator => _locator ?? (_locator = new Locator());
 
+	    public static MobileServiceClient MobileService =
+	        new MobileServiceClient(
+	            "https://azurebootcampch.azurewebsites.net"
+	        );
+
 		public App()
 		{
 			InitializeComponent();
@@ -22,7 +28,8 @@ namespace NoteTaker
             MainPage = InitializeNavigationAndInitialPage();
 		}
 
-		private NavigationPage InitializeNavigationAndInitialPage()
+
+        private NavigationPage InitializeNavigationAndInitialPage()
 		{
 			var navService = new NavigationService();
 			navService.Configure(Locator.ViewNames.NoteTakerPage, typeof(Views.NoteTakerPage));

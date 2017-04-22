@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Views;
 using NoteTaker.Models;
@@ -12,8 +13,9 @@ namespace NoteTaker.ViewModels
 	{
         readonly INavigationService _navigationService;
         readonly NotesService _notesService;
+	    private bool _isBusy;
 
-        public NoteTakerViewModel(INavigationService navigationService, NotesService notesService)
+	    public NoteTakerViewModel(INavigationService navigationService, NotesService notesService)
 		{
             if (notesService == null)
                 throw new ArgumentNullException(nameof(notesService));
@@ -22,25 +24,40 @@ namespace NoteTaker.ViewModels
 
             _navigationService = navigationService;
             _notesService = notesService;
-            Init();
         }
 
         public ObservableCollection<NoteViewItem> Notes { get; private set; }
 
-        internal void Init()
+        public bool IsBusy
         {
-            var notes = _notesService.GetNotes();
-            var deleteNote = new Action<NoteViewItem>(RemoveNote);
-            Notes = new ObservableCollection<NoteViewItem>(
-                notes.Select(n => new NoteViewItem(n){DeleteNote = deleteNote}).ToList()
-                );
-            RaisePropertyChanged(nameof(Notes));
+            get { return _isBusy; }
+            set
+            {
+                if (_isBusy == value) return;
+                _isBusy = value;
+                RaisePropertyChanged(nameof(IsBusy));
+            }
         }
 
-	    private void RemoveNote(NoteViewItem noteViewItem)
+        internal async Task Init()
+        {
+            IsBusy = true;
+            var notes = await _notesService.GetNotes();
+            var deleteNote = new Func<NoteViewItem, Task>(RemoveNote);
+
+            Notes = new ObservableCollection<NoteViewItem>(
+                notes.Select(n => new NoteViewItem(n) { DeleteNote = deleteNote }).ToList()
+                );
+            RaisePropertyChanged(nameof(Notes));
+            IsBusy = false;
+        }
+
+	    private async Task RemoveNote(NoteViewItem noteViewItem)
 	    {
+	        IsBusy = true;
 	        Notes.Remove(noteViewItem);
-	        _notesService.Delete(noteViewItem.Note);
+	        await _notesService.Delete(noteViewItem.Note);
+	        IsBusy = false;
 	    }
 
 	    internal void NoteSelected(NoteViewItem selectedNote)
@@ -50,7 +67,7 @@ namespace NoteTaker.ViewModels
 
 		internal void NewNote()
 		{
-			_navigationService.NavigateTo(Locator.ViewNames.EditNotePage, Note.NewNoteId);
+			_navigationService.NavigateTo(Locator.ViewNames.EditNotePage, new Note());
 		}
 	}
 }

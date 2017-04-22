@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
@@ -13,6 +14,7 @@ namespace NoteTaker.ViewModels
         Note _currentNote;
         readonly NotesService _notesService;
         readonly INavigationService _navigationService;
+        private bool _isBusy;
 
         public EditNoteViewModel(NotesService notesService, INavigationService navigationService)
         {
@@ -25,12 +27,6 @@ namespace NoteTaker.ViewModels
             SaveNote = new RelayCommand(SaveChangesToNote);
             DeleteNote = new RelayCommand(DeleteNoteFromStorage);
         }
-
-        //internal void Init()
-        //{
-        //    var note = new Note();
-        //    Init(note);
-        //}
 
         internal void Init(Note note)
         {
@@ -70,15 +66,30 @@ namespace NoteTaker.ViewModels
 
         public RelayCommand SaveNote { get; private set; }
 
-        void SaveChangesToNote()
+        public bool IsBusy
         {
-            _notesService.StoreNote(this._currentNote);
+            get { return _isBusy; }
+            set
+            {
+                if (_isBusy == value) return;
+                _isBusy = value;
+                RaisePropertyChanged(nameof(IsBusy));
+            }
+        }
+
+        async void SaveChangesToNote()
+        {
+            IsBusy = true;
+            await _notesService.StoreNote(this._currentNote);
+            IsBusy = false;
             _navigationService.GoBack();
         }
 
-        void DeleteNoteFromStorage()
+        async void DeleteNoteFromStorage()
         {
-            _notesService.Delete(_currentNote);
+            IsBusy = true;
+            await _notesService.Delete(_currentNote);
+            IsBusy = false;
             _navigationService.GoBack();
         }
     }

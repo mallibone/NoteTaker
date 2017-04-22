@@ -1,13 +1,17 @@
 using System;
+using System.Threading.Tasks;
 using System.Windows.Input;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using NoteTaker.Models;
 
 namespace NoteTaker.ViewModels
 {
-    public class NoteViewItem
+    public class NoteViewItem : ViewModelBase
     {
-        private Note _note; 
+        private Note _note;
+        private bool _isBusy;
+
         public NoteViewItem(Note note)
         {
             _note = note;
@@ -16,7 +20,27 @@ namespace NoteTaker.ViewModels
             Created = note.Created;
             LastEdited = note.LastEdited;
 
-            DeleteNoteCommand = new RelayCommand(() => DeleteNote(this));
+            DeleteNoteCommand = new RelayCommand(DeleteNoteCommandHandler);
+        }
+
+        private async void DeleteNoteCommandHandler()
+        {
+            IsBusy = true;
+
+            await DeleteNote(this);
+
+            IsBusy = false;
+        }
+
+        public bool IsBusy
+        {
+            get { return _isBusy; }
+            set
+            {
+                if (_isBusy == value) return;
+                _isBusy = value;
+                RaisePropertyChanged(nameof(IsBusy));
+            }
         }
 
         public string Title { get; set; }
@@ -25,7 +49,7 @@ namespace NoteTaker.ViewModels
         public DateTime LastEdited { get; set; }
         public string LastEditedString => LastEdited.ToString("D");
         public ICommand DeleteNoteCommand { get; set; }
-        public Action<NoteViewItem> DeleteNote { get; set; }
+        public Func<NoteViewItem, Task> DeleteNote { get; set; }
         public Note Note => new Note {Id = _note.Id, Title = Title, Content = Content, Created = Created, LastEdited = LastEdited};
     }
 }

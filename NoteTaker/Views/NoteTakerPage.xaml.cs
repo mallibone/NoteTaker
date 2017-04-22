@@ -1,4 +1,5 @@
-﻿using NoteTaker.Models;
+﻿using System.Threading.Tasks;
+using NoteTaker.Models;
 using NoteTaker.ViewModels;
 using Xamarin.Forms;
 
@@ -31,10 +32,10 @@ namespace NoteTaker.Views
 			NoteListView.SelectedItem = null;
 		}
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
-            Vm.Init();
+            await Vm.Init();
         }
 	}
 }
