@@ -2,7 +2,9 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
 using NoteTaker.Models;
 using NoteTaker.Services;
@@ -22,11 +24,14 @@ namespace NoteTaker.ViewModels
             if (navigationService == null)
                 throw new ArgumentNullException(nameof(navigationService));
 
+            RefreshCommand = new RelayCommand(async () => await RefreshNotes(), () => !_isBusy);
+
             _navigationService = navigationService;
             _notesService = notesService;
         }
 
-        public ObservableCollection<NoteViewItem> Notes { get; private set; }
+	    public ObservableCollection<NoteViewItem> Notes { get; private set; }
+        public ICommand RefreshCommand { get; } 
 
         public bool IsBusy
         {
@@ -69,5 +74,10 @@ namespace NoteTaker.ViewModels
 		{
 			_navigationService.NavigateTo(Locator.ViewNames.EditNotePage, new NoteItem());
 		}
+
+	    private async Task RefreshNotes()
+	    {
+	        await Init();
+	    }
 	}
 }
