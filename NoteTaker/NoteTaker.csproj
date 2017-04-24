@@ -50,7 +50,7 @@
     <Compile Include="ViewModels\NoteTakerViewModel.cs" />
     <Compile Include="Locator.cs" />
     <Compile Include="Services\NotesService.cs" />
-    <Compile Include="Models\Note.cs" />
+    <Compile Include="Models\NoteItem.cs" />
     <Compile Include="Views\EditNoteView.xaml.cs">
       <DependentUpon>EditNoteView.xaml</DependentUpon>
     </Compile>

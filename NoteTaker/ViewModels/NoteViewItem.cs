@@ -9,16 +9,16 @@ namespace NoteTaker.ViewModels
 {
     public class NoteViewItem : ViewModelBase
     {
-        private Note _note;
+        private NoteItem _noteItem;
         private bool _isBusy;
 
-        public NoteViewItem(Note note)
+        public NoteViewItem(NoteItem noteItem)
         {
-            _note = note;
-            Title = note.Title;
-            Content = note.Content;
-            Created = note.Created;
-            LastEdited = note.LastEdited;
+            _noteItem = noteItem;
+            Title = noteItem.Title;
+            Content = noteItem.Content;
+            Created = noteItem.Created;
+            LastEdited = noteItem.LastEdited;
 
             DeleteNoteCommand = new RelayCommand(DeleteNoteCommandHandler);
         }
@@ -50,6 +50,6 @@ namespace NoteTaker.ViewModels
         public string LastEditedString => LastEdited.ToString("D");
         public ICommand DeleteNoteCommand { get; set; }
         public Func<NoteViewItem, Task> DeleteNote { get; set; }
-        public Note Note => new Note {Id = _note.Id, Title = Title, Content = Content, Created = Created, LastEdited = LastEdited};
+        public NoteItem NoteItem => new NoteItem {Id = _noteItem.Id, Title = Title, Content = Content, Created = Created, LastEdited = LastEdited};
     }
 }

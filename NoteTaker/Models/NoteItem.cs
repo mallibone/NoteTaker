@@ -2,11 +2,11 @@
 
 namespace NoteTaker.Models
 {
-	public class Note
+	public class NoteItem
 	{
 	    public const int NewNoteId = 0;
 
-	    public Note()
+	    public NoteItem()
         {
             Created = DateTime.Now;
             LastEdited = DateTime.Now;
@@ -24,7 +24,7 @@ namespace NoteTaker.Models
 	        if (ReferenceEquals(null, obj)) return false;
 	        if (ReferenceEquals(this, obj)) return true;
 	        if (obj.GetType() != this.GetType()) return false;
-	        return Equals((Note) obj);
+	        return Equals((NoteItem) obj);
 	    }
 
 	    public override int GetHashCode()
@@ -39,7 +39,7 @@ namespace NoteTaker.Models
 	        }
 	    }
 
-	    protected bool Equals(Note other)
+	    protected bool Equals(NoteItem other)
 	    {
 	        return Created.Equals(other.Created) && Id.Equals(other.Id);
 	    }

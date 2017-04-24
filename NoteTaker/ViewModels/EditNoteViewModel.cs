@@ -11,7 +11,7 @@ namespace NoteTaker.ViewModels
 
     public class EditNoteViewModel : ViewModelBase
     {
-        Note _currentNote;
+        NoteItem _currentNoteItem;
         readonly NotesService _notesService;
         readonly INavigationService _navigationService;
         private bool _isBusy;
@@ -28,9 +28,9 @@ namespace NoteTaker.ViewModels
             DeleteNote = new RelayCommand(DeleteNoteFromStorage);
         }
 
-        internal void Init(Note note)
+        internal void Init(NoteItem noteItem)
         {
-            this._currentNote = note;
+            this._currentNoteItem = noteItem;
             RaisePropertyChanged(nameof(Title));
             RaisePropertyChanged(nameof(Content));
         }
@@ -38,12 +38,12 @@ namespace NoteTaker.ViewModels
         public string Title {
             get
             {
-                return _currentNote.Title;
+                return _currentNoteItem.Title;
             }
             set
             {
-                if (value == null || value == _currentNote.Title) return;
-                _currentNote.Title = value;
+                if (value == null || value == _currentNoteItem.Title) return;
+                _currentNoteItem.Title = value;
                 RaisePropertyChanged(nameof(Title));
             }
         }
@@ -52,12 +52,12 @@ namespace NoteTaker.ViewModels
         {
             get
             {
-                return _currentNote.Content;
+                return _currentNoteItem.Content;
             }
             set
             {
-                if (value == null || value == _currentNote.Content) return;
-                _currentNote.Content = value;
+                if (value == null || value == _currentNoteItem.Content) return;
+                _currentNoteItem.Content = value;
                 RaisePropertyChanged(nameof(Content));
             }
         }
@@ -80,7 +80,7 @@ namespace NoteTaker.ViewModels
         async void SaveChangesToNote()
         {
             IsBusy = true;
-            await _notesService.StoreNote(this._currentNote);
+            await _notesService.StoreNote(this._currentNoteItem);
             IsBusy = false;
             _navigationService.GoBack();
         }
@@ -88,7 +88,7 @@ namespace NoteTaker.ViewModels
         async void DeleteNoteFromStorage()
         {
             IsBusy = true;
-            await _notesService.Delete(_currentNote);
+            await _notesService.Delete(_currentNoteItem);
             IsBusy = false;
             _navigationService.GoBack();
         }

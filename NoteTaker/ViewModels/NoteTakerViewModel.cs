@@ -56,18 +56,18 @@ namespace NoteTaker.ViewModels
 	    {
 	        IsBusy = true;
 	        Notes.Remove(noteViewItem);
-	        await _notesService.Delete(noteViewItem.Note);
+	        await _notesService.Delete(noteViewItem.NoteItem);
 	        IsBusy = false;
 	    }
 
 	    internal void NoteSelected(NoteViewItem selectedNote)
 		{
-            _navigationService.NavigateTo(Locator.ViewNames.EditNotePage, selectedNote.Note);
+            _navigationService.NavigateTo(Locator.ViewNames.EditNotePage, selectedNote.NoteItem);
 		}
 
 		internal void NewNote()
 		{
-			_navigationService.NavigateTo(Locator.ViewNames.EditNotePage, new Note());
+			_navigationService.NavigateTo(Locator.ViewNames.EditNotePage, new NoteItem());
 		}
 	}
 }
