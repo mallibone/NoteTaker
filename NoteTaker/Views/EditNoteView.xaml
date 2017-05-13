@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:local="clr-namespace:NoteTaker" 
              x:Class="NoteTaker.Views.EditNoteView"
@@ -13,11 +13,11 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <Entry Placeholder="Note Title" Text="{Binding Title}" Margin="8,16" />
-            <Editor Text="{Binding Content}" Grid.Row="1" Margin="8" />
+            <Entry AutomationId="NoteTitle" Placeholder="Note Title" Text="{Binding Title}" Margin="8,16" />
+            <Editor AutomationId="NoteContent" Text="{Binding Content}" Grid.Row="1" Margin="8" />
 
-            <Button BackgroundColor="DarkRed" Text="Delete" TextColor="White" Grid.Row="3" Command="{Binding DeleteNote}" Margin="-8,0,-8,-6" />
-            <Button BackgroundColor="DarkGreen" Text="Store" TextColor="White" Grid.Row="4" Margin="-8,0,-8,0" Command="{Binding SaveNote}" />
+            <Button AutomationId="DeleteNote" BackgroundColor="DarkRed" Text="Delete" TextColor="White" Grid.Row="3" Command="{Binding DeleteNote}" Margin="-8,0,-8,-6" />
+            <Button AutomationId="StoreNote" BackgroundColor="DarkGreen" Text="Store" TextColor="White" Grid.Row="4" Margin="-8,0,-8,0" Command="{Binding SaveNote}" />
         </Grid>
         <Frame BackgroundColor="#AA424242" IsVisible="{Binding IsBusy}" Margin="-5">
             <ActivityIndicator IsVisible="{Binding IsBusy}" IsEnabled="{Binding IsBusy}" IsRunning="{Binding IsBusy}"></ActivityIndicator>
