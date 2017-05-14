@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using Xamarin.UITest;
 
-namespace NoteTaker.UITests
+namespace NoteTaker.UITests.Pages
 {
     public class EditNotePage
     {

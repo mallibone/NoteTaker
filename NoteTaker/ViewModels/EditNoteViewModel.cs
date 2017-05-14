@@ -5,6 +5,8 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
 using NoteTaker.Models;
 using NoteTaker.Services;
+using NoteTaker.Services.Notes;
+using NoteTaker.Services.Notes.Impl;
 
 namespace NoteTaker.ViewModels
 {
@@ -12,11 +14,11 @@ namespace NoteTaker.ViewModels
     public class EditNoteViewModel : ViewModelBase
     {
         NoteItem _currentNoteItem;
-        readonly NotesService _notesService;
+        readonly INotesService _notesService;
         readonly INavigationService _navigationService;
         private bool _isBusy;
 
-        public EditNoteViewModel(NotesService notesService, INavigationService navigationService)
+        public EditNoteViewModel(INotesService notesService, INavigationService navigationService)
         {
             if (navigationService == null) throw new ArgumentNullException(nameof(navigationService));
             if (notesService == null) throw new ArgumentNullException(nameof(notesService));

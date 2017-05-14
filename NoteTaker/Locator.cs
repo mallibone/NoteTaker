@@ -2,6 +2,8 @@
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
 using NoteTaker.Services;
+using NoteTaker.Services.Notes;
+using NoteTaker.Services.Notes.Impl;
 using NoteTaker.ViewModels;
 using NoteTaker.Views;
 
@@ -13,7 +15,7 @@ namespace NoteTaker
 		{
 			ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 			//Services
-			SimpleIoc.Default.Register<NotesService>();
+			SimpleIoc.Default.Register<INotesService, NotesServiceStub>();
 
 			//ViewModels
 			SimpleIoc.Default.Register<NoteTakerViewModel>();

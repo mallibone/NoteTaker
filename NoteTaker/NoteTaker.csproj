@@ -41,6 +41,8 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Notes\Impl\NotesServiceStub.cs" />
+    <Compile Include="Services\Notes\INotesService.cs" />
     <Compile Include="Utils\Constants.cs" />
     <Compile Include="ViewModels\NoteViewItem.cs" />
     <Compile Include="Views\NoteTakerPage.xaml.cs">
@@ -49,7 +51,7 @@
     <Compile Include="Utils\Extensions.cs" />
     <Compile Include="ViewModels\NoteTakerViewModel.cs" />
     <Compile Include="Locator.cs" />
-    <Compile Include="Services\NotesService.cs" />
+    <Compile Include="Services\Notes\Impl\NotesService.cs" />
     <Compile Include="Models\NoteItem.cs" />
     <Compile Include="Views\EditNoteView.xaml.cs">
       <DependentUpon>EditNoteView.xaml</DependentUpon>
