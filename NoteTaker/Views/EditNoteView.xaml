@@ -4,7 +4,7 @@
              x:Class="NoteTaker.Views.EditNoteView"
 		Title="Edit">
 
-    <Grid>
+    <Grid AutomationId="EditPage">
         <Grid Margin="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />

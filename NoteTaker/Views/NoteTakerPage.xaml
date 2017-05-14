@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:NoteTaker" x:Class="NoteTaker.Views.NoteTakerPage" Title="Notes">
-    <Grid>
+    <Grid AutomationId="MainPage">
         <ListView x:Name="NoteListView" ItemsSource="{Binding Notes}" ItemSelected="Handle_ItemSelected" Margin="0,0,8,0" IsPullToRefreshEnabled="True" RefreshCommand="{Binding RefreshCommand}" IsRefreshing="{Binding IsBusy}">
             <ListView.ItemTemplate>
                 <DataTemplate>

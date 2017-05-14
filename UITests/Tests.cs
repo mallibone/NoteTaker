@@ -27,12 +27,12 @@ namespace NoteTaker.UITests
             _editNotePage = new EditNotePage(_app);
 		}
 
-        [Test]
-        [Ignore]
-        public void TestCreator()
-        {
-            _app.Repl();
-        }
+        //[Test]
+        //[Ignore]
+        //public void TestCreator()
+        //{
+        //    _app.Repl();
+        //}
 
 		[Test]
 		public void AppStartsUp()

@@ -13,7 +13,7 @@ namespace NoteTaker.Views
 
             BindingContext = Vm;
 
-            ToolbarItems.Add(new ToolbarItem("Add", "add", () =>
+            ToolbarItems.Add(new ToolbarItem("add", "add", () =>
             {
                 Vm.NewNote();
             }));

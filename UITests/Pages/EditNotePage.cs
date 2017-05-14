@@ -17,7 +17,7 @@ namespace NoteTaker.UITests.Pages
         {
             try
             {
-                return _app.WaitForElement(c => c.Marked("Edit")).Any();
+                return _app.WaitForElement(c => c.Marked("EditPage")).Any();
             }
             catch (Exception ex)
             {
