@@ -63,8 +63,10 @@ namespace NoteTaker.UITests
             _mainPage.SelectNote("Test Note");
             _editNotePage.IsVisible();
             _editNotePage.DeleteNote();
+			_app.Screenshot("Open Note");
             _mainPage.IsVisible();
 			Assert.False(_mainPage.HasNote("Test Note"));
+			_app.Screenshot("Note removed");
         }
 	}
 }
