@@ -30,9 +30,9 @@ namespace NoteTaker.ViewModels
             DeleteNote = new RelayCommand(DeleteNoteFromStorage);
         }
 
-        internal void Init(NoteItem noteItem)
+        internal async void Init(string noteItemId)
         {
-            this._currentNoteItem = noteItem;
+            this._currentNoteItem = await _notesService.GetNote(noteItemId);
             RaisePropertyChanged(nameof(Title));
             RaisePropertyChanged(nameof(Content));
         }
@@ -40,7 +40,7 @@ namespace NoteTaker.ViewModels
         public string Title {
             get
             {
-                return _currentNoteItem.Title;
+                return _currentNoteItem?.Title;
             }
             set
             {
@@ -54,7 +54,7 @@ namespace NoteTaker.ViewModels
         {
             get
             {
-                return _currentNoteItem.Content;
+                return _currentNoteItem?.Content;
             }
             set
             {

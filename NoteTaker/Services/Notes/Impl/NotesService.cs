@@ -14,8 +14,12 @@ namespace NoteTaker.Services.Notes.Impl
 {
     public class NotesService : INotesService
     {
-        private readonly List<NoteItem> Notes = new List<NoteItem>();
+        private readonly List<NoteItem> _notes = new List<NoteItem>();
         private IMobileServiceSyncTable<NoteItem> _notesTable;
+
+        public event EventHandler<NoteEvent> NoteDeleted;
+        public event EventHandler<NoteEvent> NoteAdded;
+        public event EventHandler<NoteEvent> NoteEdited;
 
         public NotesService()
         {
@@ -24,7 +28,7 @@ namespace NoteTaker.Services.Notes.Impl
 
         public async Task<IEnumerable<NoteItem>> GetNotes(bool refresh = false)
         {
-            if (Notes.Any() && !refresh) return Notes.Clone();
+            if (_notes.Any() && !refresh) return _notes.Clone();
             var store = new MobileServiceSQLiteStore(Constants.NotesDbName);
             store.DefineTable<NoteItem>();
 
@@ -39,17 +43,17 @@ namespace NoteTaker.Services.Notes.Impl
 
             var notes = await _notesTable.ToListAsync();
 
-            Notes.Clear();
-            Notes.AddRange(notes);
+            _notes.Clear();
+            _notes.AddRange(notes);
 
-            return Notes.Clone();
+            return _notes.Clone();
         }
 
         public async Task<bool> StoreNote(NoteItem noteItem)
         {
             if (noteItem == null) throw new ArgumentNullException(nameof(noteItem));
 
-            NoteItem storedNoteItem = Notes.FirstOrDefault(n => n.Equals(noteItem));
+            NoteItem storedNoteItem = _notes.FirstOrDefault(n => n.Equals(noteItem));
 
             if (storedNoteItem != null)
             {
@@ -57,12 +61,14 @@ namespace NoteTaker.Services.Notes.Impl
                 storedNoteItem.Content = noteItem.Content;
                 storedNoteItem.LastEdited = DateTime.Now;
                 await _notesTable.UpdateAsync(storedNoteItem);
+                NoteEdited?.Invoke(this, new NoteEvent(storedNoteItem.Clone()));
             }
             else
             {
                 storedNoteItem = noteItem;
-                Notes.Add(storedNoteItem);
+                _notes.Add(storedNoteItem);
                 await _notesTable.InsertAsync(storedNoteItem);
+                NoteAdded?.Invoke(this, new NoteEvent(storedNoteItem.Clone()));
             }
 
             await SyncWithRemote();
@@ -70,16 +76,24 @@ namespace NoteTaker.Services.Notes.Impl
             return true;
         }
 
+        public async Task<NoteItem> GetNote(string id)
+        {
+            if (!_notes.Any()) await GetNotes();
+            return _notes.FirstOrDefault(n => n.Id.Equals(id));
+        }
+
         public async Task<bool> Delete(NoteItem noteItem)
         {
             if (noteItem == null) throw new ArgumentNullException(nameof(noteItem));
-            var itemDeletedFromCache = Notes.Remove(noteItem);
+            var itemDeletedFromCache = _notes.Remove(noteItem);
 
             if (itemDeletedFromCache)
             {
                 await _notesTable.DeleteAsync(noteItem);
                 await SyncWithRemote();
             }
+
+            NoteDeleted?.Invoke(this, new NoteEvent(noteItem.Clone()));
 
             return itemDeletedFromCache;
         }

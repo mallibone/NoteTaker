@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using NoteTaker.Models;
 using NoteTaker.Utils;
@@ -11,6 +10,10 @@ namespace NoteTaker.Services.Notes.Impl
     public class NotesServiceStub : INotesService
     {
         private readonly List<NoteItem> _notes;
+
+        public event EventHandler<NoteEvent> NoteDeleted;
+        public event EventHandler<NoteEvent> NoteEdited;
+        public event EventHandler<NoteEvent> NoteAdded;
 
         public NotesServiceStub()
         {
@@ -32,6 +35,8 @@ namespace NoteTaker.Services.Notes.Impl
             await Task.Delay(500);
 
             _notes.Remove(noteItem);
+
+            NoteDeleted?.Invoke(this, new NoteEvent(noteItem.Clone()));
 
             return true;
         }
@@ -58,15 +63,23 @@ namespace NoteTaker.Services.Notes.Impl
                 storedNote.Title = note.Title;
                 storedNote.Content = note.Content;
                 storedNote.LastEdited = DateTime.Now;
+                NoteEdited?.Invoke(this, new NoteEvent(storedNote.Clone()));
             }
             else
             {
                 storedNote = note;
                 storedNote.Id = (_notes.Last().Id + 1); // todo: replace with Snowflake ID...
                 _notes.Add(storedNote);
+                NoteAdded?.Invoke(this, new NoteEvent(storedNote.Clone()));
             }
 
             return true;
+        }
+
+        public async Task<NoteItem> GetNote(string id)
+        {
+            await Task.Delay(500);
+            return _notes.FirstOrDefault(n => n.Id.Equals(id, StringComparison.Ordinal))?.Clone();
         }
     }
 }

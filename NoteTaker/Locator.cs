@@ -1,7 +1,5 @@
-﻿using System;
-using GalaSoft.MvvmLight.Ioc;
+﻿using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
-using NoteTaker.Services;
 using NoteTaker.Services.Notes;
 using NoteTaker.Services.Notes.Impl;
 using NoteTaker.ViewModels;

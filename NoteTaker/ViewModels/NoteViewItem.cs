@@ -9,8 +9,11 @@ namespace NoteTaker.ViewModels
 {
     public class NoteViewItem : ViewModelBase
     {
-        private NoteItem _noteItem;
+        private readonly NoteItem _noteItem;
         private bool _isBusy;
+        private string _title;
+        private string _content;
+        private DateTime _lastEdited;
 
         public NoteViewItem(NoteItem noteItem)
         {
@@ -43,13 +46,46 @@ namespace NoteTaker.ViewModels
             }
         }
 
-        public string Title { get; set; }
-        public string Content { get; set; }
-        public DateTime Created { get; set; }
-        public DateTime LastEdited { get; set; }
+        public string Title
+        {
+            get => _title;
+            set
+            {
+                if (_title == value) return;
+                _title = value;
+                RaisePropertyChanged(nameof(Title));
+            }
+        }
+
+        public string Content
+        {
+            get => _content;
+            set
+            {
+                if (_content == value) return;
+                _content = value;
+                RaisePropertyChanged(nameof(Content));
+            }
+        }
+
+
+        public DateTime Created { get; }
+
+        public DateTime LastEdited
+        {
+            get => _lastEdited;
+            set
+            {
+                if (Equals(_lastEdited, value)) return;
+                _lastEdited = value;
+                RaisePropertyChanged(nameof(LastEdited));
+            }
+        }
+
         public string LastEditedString => LastEdited.ToString("D");
-        public ICommand DeleteNoteCommand { get; set; }
+        public ICommand DeleteNoteCommand { get; }
         public Func<NoteViewItem, Task> DeleteNote { get; set; }
+
         public NoteItem NoteItem => new NoteItem {Id = _noteItem.Id, Title = Title, Content = Content, Created = Created, LastEdited = LastEdited};
     }
 }

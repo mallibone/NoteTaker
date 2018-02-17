@@ -7,10 +7,10 @@ namespace NoteTaker.Views
 {
     public partial class EditNoteView : ContentPage
     {
-        public EditNoteView(NoteItem noteItem)
+        public EditNoteView(string noteItemId)
         {
             InitializeComponent();
-            Vm.Init(noteItem);
+            Vm.Init(noteItemId);
             BindingContext = Vm;
             NavigationPage.SetBackButtonTitle(this, "Cancel");
         }

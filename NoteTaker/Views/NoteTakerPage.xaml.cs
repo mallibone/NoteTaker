@@ -21,21 +21,20 @@ namespace NoteTaker.Views
 
 		public NoteTakerViewModel Vm => App.Locator.NoteTakerViewModel;
 
-		void Handle_ItemSelected(object sender, Xamarin.Forms.SelectedItemChangedEventArgs e)
-		{
-			if (e.SelectedItem == null) return;
-
-		    var selectedNote = ((NoteViewItem) e.SelectedItem);
-		    //Navigation.PushAsync(new EditNoteView(selectedNote.Id));
-            Vm.NoteSelected(selectedNote);
-
-			NoteListView.SelectedItem = null;
-		}
-
         protected override async void OnAppearing()
         {
             base.OnAppearing();
             await Vm.Init();
         }
+
+		private void Handle_ItemSelected(object sender, Xamarin.Forms.SelectedItemChangedEventArgs e)
+		{
+			if (e.SelectedItem == null) return;
+
+		    var selectedNote = ((NoteViewItem) e.SelectedItem);
+            Vm.NoteSelected(selectedNote);
+
+			NoteListView.SelectedItem = null;
+		}
 	}
 }
