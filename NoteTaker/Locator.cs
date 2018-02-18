@@ -1,5 +1,4 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
-using Microsoft.Practices.ServiceLocation;
 using NoteTaker.Services.Notes;
 using NoteTaker.Services.Notes.Impl;
 using NoteTaker.ViewModels;
@@ -11,7 +10,7 @@ namespace NoteTaker
 	{
 		static Locator()
 		{
-			ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
+			//ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 			//Services
 			SimpleIoc.Default.Register<INotesService, NotesServiceStub>();
 
@@ -26,12 +25,12 @@ namespace NoteTaker
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
 			"CA1822:MarkMembersAsStatic",
 			Justification = "This non-static member is needed for data binding purposes.")]
-		public NoteTakerViewModel NoteTakerViewModel => ServiceLocator.Current.GetInstance<NoteTakerViewModel>();
+		public NoteTakerViewModel NoteTakerViewModel => SimpleIoc.Default.GetInstance<NoteTakerViewModel>();
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
             "CA1822:MarkMembersAsStatic",
             Justification = "This non-static member is needed for data binding purposes.")]
-        public EditNoteViewModel EditNoteViewModel => ServiceLocator.Current.GetInstance<EditNoteViewModel>();
+        public EditNoteViewModel EditNoteViewModel => SimpleIoc.Default.GetInstance<EditNoteViewModel>();
 
 		public class ViewNames
 		{

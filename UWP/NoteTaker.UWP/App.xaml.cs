@@ -32,7 +32,6 @@ namespace NoteTaker.UWP
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
-            MobileCenter.Start("f4175dc8-0ef6-42af-9204-09fde9034085", typeof(Analytics));
         }
 
         /// <summary>
