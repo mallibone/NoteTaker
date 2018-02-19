@@ -19,9 +19,9 @@ namespace NoteTaker.Services.Notes.Impl
         {
             _notes = new List<NoteItem>
             {
-                new NoteItem {Id = "1", Title = "Global Azure Bootcamp", Content = "Show how quickly remote storage, authentication and push can be added to an app.\n\n=>From Zero to Hero", Created = DateTime.Now.AddMonths(-1), LastEdited = DateTime.Now.AddMonths(-1)},
-                new NoteItem {Id = "2", Title = "Plan Date Night", Content = "Don't forget to ask your wife to be your valentine on the 14. February", Created = DateTime.Now.AddDays(-7), LastEdited = DateTime.Now.AddDays(-7)},
-                new NoteItem {Id = "3", Title = "Answers for Azure Mobile App Service Q&A", Content = "- It depends\n- 42", Created = DateTime.Now.AddDays(-1), LastEdited = DateTime.Now.AddDays(-1)},
+                new NoteItem {Id = "1", Title = "Visual Studio App Center Talk", Content = "Show how to setup build, deploy, analytics, testing and if there is time the awesome push notification integration.", Created = DateTime.Now.AddMonths(-1), LastEdited = DateTime.Now.AddMonths(-1)},
+                new NoteItem {Id = "2", Title = "Plan Date", Content = "Get:\n\n- Flowers\n- Antipasti\n- Wine\n- Candles\n- Romantic Music", Created = DateTime.Now.AddDays(-7), LastEdited = DateTime.Now.AddDays(-7)},
+                new NoteItem {Id = "3", Title = "Answers for VSAC Q&A", Content = "- It depends\n- 42", Created = DateTime.Now.AddDays(-1), LastEdited = DateTime.Now.AddDays(-1)},
                 new NoteItem {Id = "4", Title = "Spacey Wacey Stuff", Content = "Dr. Who things and what not.", Created = DateTime.Now.AddHours(-1), LastEdited = DateTime.Now.AddHours(-1)},
             };
         }
