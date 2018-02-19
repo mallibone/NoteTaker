@@ -1,7 +1,6 @@
 ﻿using NoteTaker.UITests.Pages;
 using NUnit.Framework;
 using Xamarin.UITest;
-using Xamarin.UITest.Queries;
 
 namespace NoteTaker.UITests
 {
