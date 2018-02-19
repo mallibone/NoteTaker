@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoteTaker.UITests", "UITest
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoteTaker.UWP", "UWP\NoteTaker.UWP\NoteTaker.UWP.csproj", "{A1414053-7B19-441E-83A1-F67B026885A7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5910C273-4E6F-43DC-94BB-F425CB13AD05}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -147,6 +149,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{576E3392-E6CF-4EBB-8B85-7F1DC01E4DAF} = {5910C273-4E6F-43DC-94BB-F425CB13AD05}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B6B6C4FE-92EC-498B-9EC2-EAD67A539530}
