@@ -1,8 +1,5 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Views;
-using Microsoft.Azure.Mobile;
-using Microsoft.Azure.Mobile.Analytics;
-using Microsoft.Azure.Mobile.Crashes;
 using NoteTaker.Services;
 using Xamarin.Forms;
 
@@ -16,10 +13,6 @@ namespace NoteTaker
 		public App()
 		{
 			InitializeComponent();
-
-		    AppCenter.Start(
-		        "android=c14dd8e9-357b-4bed-b0d3-c53c0460ed87;" + "uwp={Your UWP App secret here};" +
-		        "ios={Your iOS App secret here}", typeof(Analytics), typeof(Crashes));
 
             MainPage = InitializeNavigationAndInitialPage();
 		}
