@@ -17,7 +17,9 @@ namespace NoteTaker
 		{
 			InitializeComponent();
 
-            //MobileCenter.Start(typeof(Analytics), typeof(Crashes));
+		    AppCenter.Start(
+		        "android=c14dd8e9-357b-4bed-b0d3-c53c0460ed87;" + "uwp={Your UWP App secret here};" +
+		        "ios={Your iOS App secret here}", typeof(Analytics), typeof(Crashes));
 
             MainPage = InitializeNavigationAndInitialPage();
 		}
