@@ -1,3 +1,3 @@
 # NoteTaker
 
-NoteTaker is a demo app for the Swiss TechDays 2017.
+NoteTaker is a demo app for various presentations.
