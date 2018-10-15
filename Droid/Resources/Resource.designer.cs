@@ -84,6 +84,10 @@ namespace NoteTaker.Droid
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
 			}
+			
+			private Animation()
+			{
+			}
 		}
 		
 		public partial class Animator
